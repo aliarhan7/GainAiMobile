@@ -3,13 +3,15 @@ import { View, Text, TouchableOpacity, SafeAreaView, StatusBar, ScrollView } fro
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../App';
-
+import { FormContext } from 'FormContext';
+import { useContext } from 'react';
 type AllergySelectionScreenProps = NativeStackNavigationProp<RootStackParamList, 'AllergySelection'>;
 
 const AllergySelectionScreen: React.FC = () => {
   const navigation = useNavigation<AllergySelectionScreenProps>();
   
-  // Alerji seçenekleri ve durumları için state
+  const { updateAllergies } = useContext(FormContext)!;
+  
   const [allergies, setAllergies] = useState({
     milk: false,
     eggs: false,
@@ -24,17 +26,15 @@ const AllergySelectionScreen: React.FC = () => {
   const toggleAllergy = (key: keyof typeof allergies) => {
     setAllergies(prev => ({
       ...prev,
-      [key]: !prev[key]
+      [key]: !prev[key],
     }));
   };
 
   const handleNext = () => {
-    // Seçilen alerjileri işleyebilir ve saklayabilirsiniz
     const selectedAllergies = Object.entries(allergies)
       .filter(([_, selected]) => selected)
       .map(([key]) => key);
-    
-    console.log('Selected Allergies:', selectedAllergies);
+    updateAllergies(selectedAllergies);
     navigation.navigate('UserInfo');
   };
 

@@ -3,22 +3,30 @@ import { View, Text, TouchableOpacity, SafeAreaView, StatusBar, ScrollView } fro
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../App';
+import { useContext } from 'react';
+import { FormContext } from 'FormContext';
 
 type FinalScreenProps = NativeStackNavigationProp<RootStackParamList, 'Final'>;
 
 const FinalScreen: React.FC = () => {
   const navigation = useNavigation<FinalScreenProps>();
-  
-  // Bu bölümde önceki ekranlardan toplanan verileri kullanarak bir özet gösterebilirsiniz
-  // Ya da meal plan türlerini seçtirip son bir ayarlama yaptırabilirsiniz
-  
+  const context = useContext(FormContext);
+
+  if (!context) {
+    throw new Error('must be used within a FormProvider');
+  }
+  const { user, form, allergies, submitToAPI } = context;
+
   const [planType, setPlanType] = useState<'balanced' | 'lowCarb' | 'highProtein'>('balanced');
 
-  const handleFinish = () => {
-    // Burada tüm süreci tamamlayıp ana ekrana dönebilir veya 
-    // oluşturulan meal plan'ı gösterebilirsiniz
-    console.log('Selected Plan Type:', planType);
-    navigation.navigate('Home');
+  const handleFinish = async () => {
+    try {
+      await submitToAPI();
+      console.log('Selected Plan Type:', planType ); 
+      navigation.navigate('Home');
+    } catch (err) {
+      console.error('Failed to submit data:', err);
+    }
   };
 
   return (

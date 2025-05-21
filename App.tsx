@@ -12,6 +12,7 @@ import AllergySelectionScreen from 'components/MealPlanForm/AllergySelection';
 import MealPlansScreen from 'components/UserMealPlans';
 import MealPlanDetails from 'components/MealPlanDetails';
 import SignUpScreen from 'screens/SignUp';
+import { FormProvider } from 'FormContext';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -34,6 +35,7 @@ function MainApp() {
   }
 
   return (
+  <FormProvider>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen 
@@ -54,6 +56,7 @@ function MainApp() {
         <Stack.Screen name="MealPlanDetails" component={MealPlanDetails} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
+  </FormProvider>
   );
 }
 

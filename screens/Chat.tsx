@@ -91,6 +91,7 @@ const RecipeAssistantApp = () => {
         clerk_user_id: 'clerk_123' // Replace with actual Clerk user ID
       });
 
+      
       let botText;
       let botOptions: string[] = [];
       
