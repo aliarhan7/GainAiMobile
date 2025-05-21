@@ -15,10 +15,12 @@ import SignUpScreen from 'screens/SignUp';
 
 export type RootStackParamList = {
   Home: undefined;
+  MealPlan: undefined;
   StepOne: undefined;
   AllergySelection: undefined;
   UserInfo: undefined;
   Final: undefined;
+  MainTabs: { screen?: keyof RootStackParamList };
 };
 
 const Stack = createStackNavigator();

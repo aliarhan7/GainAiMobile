@@ -92,7 +92,7 @@ const StepOneScreen: React.FC = () => {
       <View className="absolute bottom-8 flex-row w-full justify-between px-4">
         <TouchableOpacity 
           className="bg-[#F2F2F2] rounded px-4 py-2"
-          onPress={() => navigation.navigate('MainTabs')}
+          onPress={() => navigation.navigate('MainTabs', { screen: 'MealPlan' })}
         >
           <Text className="text-black text-center font-bold text-xs">Önceki</Text>
         </TouchableOpacity>
